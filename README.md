@@ -18,4 +18,3 @@ Most of the code in this project has been written to the ES6 JavaScript specific
  This repository is using [leafletjs](https://leafletjs.com/) with [Mapbox](https://www.mapbox.com/) jpg tiles optimized with quality:70.
 You need to replace <your MAPBOX API KEY HERE> with token from [Mapbox](https://www.mapbox.com/), and you can check the [pricing](https://www.mapbox.com/pricing/): free and no credit card required.
 all leaflet mapbox code was written by https://github.com/Focus3D
-# MWSStage3
