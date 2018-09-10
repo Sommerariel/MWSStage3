@@ -154,8 +154,6 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
  */
 createRestaurantHTML = (restaurant) => {
   const li = document.createElement('li');
-
-/*TODO Create Responsive Images with alt text*/
   const image = document.createElement('img');
   image.className = 'restaurant-img';
   /*image.src = DBHelper.imageUrlForRestaurant(restaurant);*/
@@ -164,9 +162,15 @@ createRestaurantHTML = (restaurant) => {
   image.alt = `An image taken at ${restaurant.name} Restaurant in ${restaurant.neighborhood} in New York City, NY.`;
   li.append(image);
 
+  /*TODO create favorite icon and be able to toggle state*/
+
   const name = document.createElement('h3');
   name.innerHTML = restaurant.name;
   li.append(name);
+
+  const favorite = document.createElement('button');
+  favorite.className ="favorite-button";
+  li.append(favorite);
 
   const neighborhood = document.createElement('p');
   neighborhood.innerHTML = restaurant.neighborhood;
