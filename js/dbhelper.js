@@ -74,7 +74,7 @@ class DBHelper {
              dbPromise.then(db => {
                const tx = db.transaction('reviews', 'readwrite');
                const store = tx.objectStore('reviews');
-               restaurants.forEach(restaurant => {
+               reviews.forEach(review => {
                  store.put(review);
                });
                return tx.complete;
@@ -178,7 +178,6 @@ class DBHelper {
   static urlForRestaurant(restaurant) {
     return (`./restaurant.html?id=${restaurant.id}`);
   }
-
 
   /**
    * Restaurant image URL.
