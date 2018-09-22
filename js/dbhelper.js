@@ -3,10 +3,17 @@
  */
 'use strict';
 
- const dbPromise = idb.open('resturant-reviews', 1, function(upgradeDb) {
-   console.log('creating a id index');
-   const store = upgradeDb.createObjectStore('restaurants', {keyPath: "id"});
-   store.createIndex('ID', 'id');
+ const dbPromise = idb.open('resturant-reviews', 2, upgradeDb => {
+   switch(upgradeDb.oldVersion) {
+     case 0:
+       console.log('creating a id index');
+       const store = upgradeDb.createObjectStore('restaurants', {keyPath: "id"});
+       store.createIndex('ID', 'id');
+     case 1:
+        console.log('creating a review store');
+        const reviewsStore = upgradeDb.createObjectStore('reviews', {keyPath: "id"});
+        reviewsStore.createIndex( 'Restaurant_id', 'restaurant_id')
+   }
  });
 
 class DBHelper {
@@ -17,6 +24,11 @@ class DBHelper {
   static get DATABASE_URL() {
     const port = 1337; // Change this to your server port
     return `http://localhost:${port}/restaurants/`;
+  }
+
+  static get DATABASE_REVIEW_URL() {
+    const port = 1337;
+    return `http://localhost:${port}/reviews/?restaurant_id=`;
   }
 
   /**
@@ -50,6 +62,37 @@ class DBHelper {
      })
      });
    }
+
+   static fetchReviews(id, callback) {
+     //using the fetch api to pull data from the server
+     //the json method on a response object returns a promise
+     const urlToFetch = DBHelper.DATABASE_REVIEW_URL + id;
+     fetch(urlToFetch)
+     .then(response => response.json()) //return json from sever
+     .then(reviews =>
+       {
+             dbPromise.then(db => {
+               const tx = db.transaction('reviews', 'readwrite');
+               const store = tx.objectStore('reviews');
+               restaurants.forEach(restaurant => {
+                 store.put(review);
+               });
+               return tx.complete;
+           });
+          callback(null, reviews);
+       }
+     ).catch(function () {
+       console.log(`You seem to be offline.Please check your internet`);
+       dbPromise.then(db => {
+         const tx = db.transaction('reviews', 'readwrite');
+         const store = tx.objectStore('reviews');
+         return store.getAll();
+     }).then(reviews => {
+         callback(null, reviews);
+     })
+     });
+   }
+
 
   /**
    * Fetch a restaurant by its ID.
@@ -135,6 +178,7 @@ class DBHelper {
   static urlForRestaurant(restaurant) {
     return (`./restaurant.html?id=${restaurant.id}`);
   }
+
 
   /**
    * Restaurant image URL.
