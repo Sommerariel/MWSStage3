@@ -177,10 +177,10 @@ createRestaurantHTML = (restaurant) => {
     let favStatus = !restaurant.is_favorite;
     DBHelper.favoriteStatus(restaurant.id, favStatus);
     restaurant.is_favorite = !restaurant.is_favorite;
-    if (restaurant.is_favorite === 'false') {
+    if (restaurant.is_favorite == false) {
       //if the rest is not a favorite make it one
       console.log('resturant is now a fav');
-    } else {
+    } else if(restaurant.is_favorite == true) {
       //if it is a favorite unfavorite the rest
       console.log('resturant is not a fav');
     }
