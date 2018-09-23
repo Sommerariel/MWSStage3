@@ -99,6 +99,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   if (restaurant.operating_hours) {
     fillRestaurantHoursHTML();
   }
+
   // fill reviews
   DBHelper.fetchReviews(restaurant.id, fillReviewsHTML);
   //console.log("filled Reviews");
@@ -186,6 +187,10 @@ fillBreadcrumb = (restaurant=self.restaurant) => {
   breadcrumb.appendChild(li);
 }
 
+//create the  to submit reviews
+createForm = function() {
+  /*TODO Create form to submit reviews*/
+}
 /**
  * Get a parameter by name from page URL.
  */

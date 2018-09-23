@@ -209,7 +209,26 @@ class DBHelper {
     );
     return marker;
   }*/
+  static favoriteStatus(id, status) {
+    DBHelper.fetchRestaurants((error, restaurant) => {
+      if (error) {
+        callback(error, null);
+      } else {
+        console.log('status:', status);
+        const urltoPUT = DBHelper.DATABASE_URL + id + `/?is_favorite=` + status;
+        fetch(urltoPUT , {
+          method: 'PUT'
+        })
+        .then(() => {
+          console.log('changed status');
+          //put it into the database
+        })
+      }
+    });
+  }
+
 }
+
 
 //Check if browser supports service worker. If so regsiter it!
 if ('serviceWorker' in navigator) {

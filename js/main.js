@@ -162,7 +162,6 @@ createRestaurantHTML = (restaurant) => {
   image.alt = `An image taken at ${restaurant.name} Restaurant in ${restaurant.neighborhood} in New York City, NY.`;
   li.append(image);
 
-  /*TODO create favorite icon and be able to toggle state*/
 
   const name = document.createElement('h3');
   name.innerHTML = restaurant.name;
@@ -170,6 +169,21 @@ createRestaurantHTML = (restaurant) => {
 
   const favorite = document.createElement('button');
   favorite.className ="favorite-button";
+  favorite.onclick = function() {
+    /*TODO handle the switching between is_favorite toggled on and off. Need to write in DBHelper and then pass the function here*/
+    if (restaurant.is_favorite == 'undefined') {
+      is.favorite === 'false';
+    }
+    let favStatus = !restaurant.is_favorite;
+    DBHelper.favoriteStatus(restaurant.id, favStatus);
+    if (restaurant.is_favorite === 'false') {
+      //if the rest is not a favorite make it one
+      console.log('resturant is now a fav');
+    } else {
+      //if it is a favorite unfavorite the rest
+      console.log('resturant is not a fav');
+    }
+  }
   li.append(favorite);
 
   const neighborhood = document.createElement('p');
