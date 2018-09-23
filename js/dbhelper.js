@@ -79,7 +79,7 @@ class DBHelper {
                });
                return tx.complete;
            });
-          callback(null, reviews);
+          callback(reviews);
        }
      ).catch(function () {
        console.log(`You seem to be offline.Please check your internet`);
