@@ -220,8 +220,7 @@ class DBHelper {
           method: 'PUT'
         })
         .then(() => {
-          console.log('changed status');
-          //put it into the database
+          console.log('changed status: ', + status);
         })
       }
     });
