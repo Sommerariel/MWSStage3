@@ -221,14 +221,15 @@ class DBHelper {
         })
         .then(() => {
           console.log('changed status: ', + status);
-          //cache the data so that when you reload it stays
+
+          //put the data into the database
           dbPromise.then(db => {
             const tx = db.transaction('restaurants', 'readwrite');
             const store = tx.objectStore('restaurants');
-            store.get(ID)
+            store.get(id)
         }).then(restaurant => {
-            resturant.is_favorite = status;
-            store.put(resturant)
+            restaurant.is_favorite = status;
+            store.put(resturant);
             //callback(null, restaurants);
         })
         })
