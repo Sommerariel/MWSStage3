@@ -169,6 +169,9 @@ createRestaurantHTML = (restaurant) => {
 
   const favorite = document.createElement('button');
   favorite.className ="favorite-button";
+  let favStatusName = 'click to favorite';
+  let favIconButton = '<i class="far fa-heart"></i>';
+  favorite.innerHTML =  favIconButton + ' ' + favStatusName;
   favorite.onclick = function() {
     /*TODO handle the switching between is_favorite toggled on and off. Need to write in DBHelper and then pass the function here*/
     if (restaurant.is_favorite == 'undefined') {
@@ -177,13 +180,18 @@ createRestaurantHTML = (restaurant) => {
     let favStatus = !restaurant.is_favorite;
     DBHelper.favoriteStatus(restaurant.id, favStatus);
     restaurant.is_favorite = !restaurant.is_favorite;
-    if (restaurant.is_favorite == false) {
+    if (restaurant.is_favorite === false) {
       //if the rest is not a favorite make it one
-      console.log('resturant is now a fav');
-    } else if(restaurant.is_favorite == true) {
+      favIconButton = '<i class="fas fa-heart"></i>';
+      favStatusName = "favorite";
+      console.log(favStatusName);
+    } else if(restaurant.is_favorite === true) {
       //if it is a favorite unfavorite the rest
+      favIconButton = '<i class="far fa-heart"></i>';
+      favStatusName = 'unfavorite';
       console.log('resturant is not a fav');
     }
+    favorite.innerHTML =  favIconButton + ' ' + favStatusName;
   }
   li.append(favorite);
 
