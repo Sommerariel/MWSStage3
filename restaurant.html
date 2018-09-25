@@ -54,6 +54,29 @@
     <section id="reviews-container">
       <ul id="reviews-list"></ul>
     </section>
+    <h3>We want to hear from you! Leave your review</h3>
+    <section id="review-form-container">
+      <form id="reviews-form" method="post">
+        <div>
+          <label for="name">Name:</label></br>
+          <input type="text" id="name" name="review_name">
+        </div>
+        <div>
+          <input type="radio" name="rating" value="1"> 1<br>
+          <input type="radio" name="rating" value="2"> 2<br>
+          <input type="radio" name="rating" value="3"> 3<br>
+          <input type="radio" name="rating" value="4"> 4<br>
+          <input type="radio" name="rating" value="5" checked> 5<br>
+        </div>
+        <div>
+          <label for="review">Review:</label>
+          <input type="text" id="review" review="review">
+        </div>
+        <div class="submit-button">
+          <button type="submit"> Submit Review</button>
+        </div>
+      </form>
+    </section>
     <!-- End reviews -->
   </main>
   <!-- End main -->
