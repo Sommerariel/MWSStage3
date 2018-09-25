@@ -180,12 +180,12 @@ createRestaurantHTML = (restaurant) => {
     let favStatus = !restaurant.is_favorite;
     DBHelper.favoriteStatus(restaurant.id, favStatus);
     restaurant.is_favorite = !restaurant.is_favorite;
-    if (restaurant.is_favorite === false) {
+    if (restaurant.is_favorite == false) {
       //if the rest is not a favorite make it on
       favIconButton = '<i class="fas fa-heart"></i>';
       favStatusName = 'unfavorite';
       console.log(favStatusName);
-    } else if(restaurant.is_favorite === true) {
+    } else if(restaurant.is_favorite == true) {
       //if it is a favorite unfavorite the rest
       favIconButton = '<i class="far fa-heart"></i>';
       favStatusName = "favorite";

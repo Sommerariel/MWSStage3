@@ -214,25 +214,34 @@ class DBHelper {
       if (error) {
         callback(error, null);
       } else {
-        console.log('status:', status);
+        //console.log('status:', status);
         const urltoPUT = DBHelper.DATABASE_URL + id + `/?is_favorite=` + status;
         fetch(urltoPUT , {
           method: 'PUT'
         })
-        .then(() => {
-          console.log('changed status: ', + status);
-
-          //put the data into the database
+        .then(() =>
+          {
+                this.dbPromise(db => {
+                  const tx = db.transaction('restaurants', 'readwrite');
+                  const store = tx.objectStore('restaurants');
+                  restaurants.forEach(restaurant => {
+                    restaurant.is_favorite = status;
+                    store.put(restaurant);
+                  });
+                  return tx.complete;
+              });
+             //callback(restaurants);
+          }
+        ).catch(function () {
+          console.log(`You seem to be offline.Please check your internet`);
           dbPromise.then(db => {
             const tx = db.transaction('restaurants', 'readwrite');
             const store = tx.objectStore('restaurants');
-            store.get(id)
-        }).then(restaurant => {
-            restaurant.is_favorite = status;
-            store.put(resturant);
-            //callback(null, restaurants);
+            return store.getAll();
+        }).then(restaurants => {
+            //callback(restaurants);
         })
-        })
+        });
       }
     });
   }
