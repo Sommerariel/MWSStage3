@@ -383,10 +383,12 @@ nav h1 a {
 	flex-basis: 100%;
 }
 #restaurant-container,
-#reviews-container {
+#reviews-container, #review-form-container {
   border-bottom: 1px solid #d9d9d9;
   border-top: 1px solid #fff;
-  width: 100%;
+  width: 90%;
+	margin-left: auto;
+	margin-right: auto;
 }
 #restaurant-container{
 	/*flex-basis: 100%;*/
@@ -394,13 +396,20 @@ nav h1 a {
 	flex-wrap: wrap;
 }
 
-#reviews-container {
+#reviews-container, #review-form-container {
 	padding-bottom: 3em;
 }
 
-#reviews-container h2 {
+#reviews-container h2{
   color: #30A8A8;
   font-size: 2.1em;
+  font-weight: 300;
+  letter-spacing: -1px;
+  padding-bottom: 1pt;
+}
+#review-form-container  h3{
+	color: #30A8A8;
+  font-size: 1.5em;
   font-weight: 300;
   letter-spacing: -1px;
   padding-bottom: 1pt;
@@ -478,6 +487,30 @@ nav h1 a {
 
 }
 
+#rating {
+	display: flex;
+	margin-bottom: 15px;
+}
+
+input[type="radio"] {
+margin: 5px;
+}
+textarea#review{
+	width: 100%;
+  height: 7em;
+}
+#submit-button{
+	background-color: #30A8A8;
+	color: white;
+	border: none;
+	text-align: center;
+	font-size: 1em;
+	padding: 1em;
+	margin-top: 1em;
+}
+
+
+
 /* ====================== Media Queries ====================== */
 
 /*@media only screen and (min-width: 600px) {
@@ -532,7 +565,15 @@ nav h1 a {
 	}
 	#reviews-container {
 		order: 2;
-		width: 100%;
+		width: 80%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	#review-form-container{
+		order: 3;
+		width: 80%;
+		margin-left: auto;
+		margin-right: auto;
 	}
 }
 
@@ -550,7 +591,12 @@ nav h1 a {
 	}
 
 	#reviews-container {
-		 width: 80%;
+		 width: 60%;
+     margin-left: auto;
+     margin-right: auto;
+	}
+	#review-form-container {
+		 width: 30%;
      margin-left: auto;
      margin-right: auto;
 	}
