@@ -129,7 +129,6 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
  * Create all reviews HTML and add them to the webpage.
  */
 fillReviewsHTML = (reviews = self.reviews) => {
-  console.log(reviews);
   const container = document.getElementById('reviews-container');
   const title = document.createElement('h2');
   title.innerHTML = 'Reviews';
@@ -186,11 +185,6 @@ fillBreadcrumb = (restaurant=self.restaurant) => {
   li.innerHTML = restaurant.name;
   breadcrumb.appendChild(li);
 }
-
-//create the  to submit reviews
-createForm = function() {
-  /*TODO Create form to submit reviews*/
-}
 /**
  * Get a parameter by name from page URL.
  */
@@ -206,3 +200,25 @@ getParameterByName = (name, url) => {
     return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
+
+/**
+ * Submit the Form to the Database
+ */
+ addReview = () => {
+   //if the event is not explicitly handles its default action should not be taken
+   event.preventDefault();
+   //get values from the Form
+   const reviewID = "restaurant_id";
+   const reviewName = document.querySelector("input[name='review_name']");
+   const reviewRating = document.querySelector("input[name='rating']");
+   const reviewMessage = document.querySelector("textarea[name='review']");
+   let reviewData = {
+     "restaurant_id": restaurant_id,
+     "review_name": name.value,
+     "createdAt": new Date(),
+     "updatedAt": new Date(),
+     "rating": rating.value,
+     "review": review.value
+   };
+   //call DBHelper function to add review to the database if submitted. 
+ }
