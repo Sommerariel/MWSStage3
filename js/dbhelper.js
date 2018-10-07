@@ -10,7 +10,7 @@
        const store = upgradeDb.createObjectStore('restaurants', {keyPath: "id"});
        store.createIndex('ID', 'id');
      case 1:
-        console.log('creating a review store');
+        //console.log('creating a review store');
         const reviewsStore = upgradeDb.createObjectStore('reviews', {keyPath: "id"});
         reviewsStore.createIndex( 'Restaurant_id', 'restaurant_id')
    }
@@ -75,7 +75,7 @@ class DBHelper {
                const tx = db.transaction('reviews', 'readwrite');
                const store = tx.objectStore('reviews');
                reviews.forEach(review => {
-                 store.put(review);
+                 store.add(review);
                });
                return tx.complete;
            });
@@ -225,6 +225,7 @@ class DBHelper {
                   const tx = db.transaction('restaurants', 'readwrite');
                   const store = tx.objectStore('restaurants');
                   restaurants.forEach(restaurant => {
+                    //let status = (restaurant.is_favorite == true) ? false : true;
                     restaurant.is_favorite = status;
                     store.put(restaurant);
                   });
@@ -233,13 +234,10 @@ class DBHelper {
              //callback(restaurants);
           }
         ).catch(function () {
-          console.log(`You seem to be offline.Please check your internet`);
           dbPromise.then(db => {
             const tx = db.transaction('restaurants', 'readwrite');
             const store = tx.objectStore('restaurants');
             return store.getAll();
-        }).then(restaurants => {
-            //callback(restaurants);
         })
         });
       }
