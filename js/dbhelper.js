@@ -244,6 +244,17 @@ class DBHelper {
     });
   }
 
+  static addReviewServer(review, id) {
+    const port = 1337;
+    return fetch(`http://localhost:${port}/reviews/`, {
+      body: JSON.stringify(review),
+      mode: 'cors',
+      method: 'POST',
+    }).catch(err => {
+      console.log('no review');
+    })
+  }
+
 }
 
 
