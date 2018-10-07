@@ -244,7 +244,7 @@ class DBHelper {
     });
   }
 
-  static addReviewServer(review, id) {
+  static addReviewServer(review) {
     const port = 1337;
     return fetch(`http://localhost:${port}/reviews/`, {
       body: JSON.stringify(review),

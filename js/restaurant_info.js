@@ -206,21 +206,21 @@ getParameterByName = (name, url) => {
  */
  addReview = (id) => {
    //if the event is not explicitly handles its default action should not be taken
-   //event.preventDefault();
+   event.preventDefault();
    //get values from the Form
-   const reviewName = document.querySelector("input[name='review_name']");
-   const reviewRating = document.querySelector("input[name='rating']");
-   const reviewMessage = document.querySelector("textarea[name='review']");
+   const reviewName = document.getElementById('review_name');
+   const reviewRating = document.querySelector('input[name="rating"]:checked');
+   const reviewMessage = document.getElementById('review');
    let reviewData = {
-     "restaurant_id": id,
-     "review_name": name.value,
-     "createdAt": new Date(),
-     "updatedAt": new Date(),
-     "rating": rating.value,
-     "review": review.value
+     restaurant_id: id,
+     review_name: name.value,
+     createdAt: new Date(),
+     updatedAt: new Date(),
+     rating: rating.value,
+     review: review.value
    };
    //call DBHelper function to add review to the database if submitted.
-   DBHelper.addReviewServer(reviewData, id);
+   DBHelper.addReviewServer(reviewData);
  }
- const id = getParameterByName('id');
- document.getElementById("submit-button").onclick = addReview(id);
+ //const id = getParameterByName('id');
+ //document.getElementById("submit-button").onClick = addReview(id);
