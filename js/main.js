@@ -173,21 +173,20 @@ createRestaurantHTML = (restaurant) => {
   let favIconButton = '<i class="far fa-heart"></i>';
   favorite.innerHTML =  favIconButton + ' ' + favStatusName;
   favorite.onclick = function() {
+    const favStatus = (restaurant.is_favorite.toString() === "true") ? true : false;
     if (restaurant.is_favorite == 'undefined') {
       restaurant.is_favorite === false;
     }
-    let favStatus = !restaurant.is_favorite;
     DBHelper.favoriteStatus(restaurant.id, favStatus);
-    console.log(favStatus);
     restaurant.is_favorite = !restaurant.is_favorite;
     if (restaurant.is_favorite === false) {
       //if the rest is not a favorite make it on
-      favIconButton = '<i class="fas fa-heart"></i>';
+      favIconButton = '<i class="far fa-heart"></i>';
       favStatusName = 'unfavorite';
       //console.log(favStatusName);
     } else if(restaurant.is_favorite === true) {
       //if it is a favorite unfavorite the rest
-      favIconButton = '<i class="far fa-heart"></i>';
+      favIconButton = '<i class="fas fa-heart"></i>';
       favStatusName = "favorite";
       //console.log('resturant is not a fav');
     }
