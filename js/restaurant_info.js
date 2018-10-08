@@ -221,6 +221,18 @@ addReview = () => {
     review: review.value
   };
   console.log(data);
+  //if the browser goes offline alert the user and put the data into a queue for storage
+  if(!navigator.onLine) {
+  //alert the user that they are offline and that the form might not save if they close
+  const offlineMessage = document.createElement('p');
+  offlineMessage.className = 'offline';
+  offlineMessage.innerHTML = 'It appears you have lost connection to the network. Your review is pending. Please do not exit.';
+  document.getElementById('review-form-container').appendChild(offlineMessage);
+
+  //put the data into a queue
+
+
+  }
 }
 
  /*
