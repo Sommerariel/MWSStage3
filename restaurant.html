@@ -58,23 +58,23 @@
       <h3>We want to hear from you! Leave your review</h3>
       <form  role="form" aria-label="Review form" id="reviews-form" method="post">
         <div>
-          <label for="name">Name:</label></br>
-          <input type="text" id="name" id="review_name" name="review_name">
+          <label id="name" for="name">Name:</label></br>
+          <input aria-required="true" type="text" id="name" id="review_name" name="review_name">
         </div>
-        <p id="name">Rating:</p>
-        <div id="rating">
-          <input type="radio" name="rating" value="1"> 1<br>
-          <input type="radio" name="rating" value="2"> 2<br>
-          <input type="radio" name="rating" value="3"> 3<br>
-          <input type="radio" name="rating" value="4"> 4<br>
-          <input type="radio" name="rating" value="5" checked> 5<br>
+        <p id="rating-title">Rating:</p>
+        <div id="rating" aria-required="true" role="radiogroup" aria-labelledby="rating-title">
+          <input type="radio" aria-label="1" name="rating" value="1"> 1<br>
+          <input type="radio" aria-label="2" name="rating" value="2"> 2<br>
+          <input type="radio" aria-label="3" name="rating" value="3"> 3<br>
+          <input type="radio" aria-label="4" name="rating" value="4"> 4<br>
+          <input type="radio" aria-label="5" name="rating" value="5" checked> 5<br>
         </div>
         <div>
           <label for="review">Review:</label>
-          <textarea id="review" name="review"></textarea>
+          <textarea aria-required="true" id="review" name="review"></textarea>
         </div>
         <div class="submit-button">
-          <button id="submit-button" type="submit"> Submit Review</button>
+          <button id="submit-button" type="submit" aria-label="Submit Review" onclick="addReview()"> Submit Review</button>
         </div>
       </form>
     </section>
