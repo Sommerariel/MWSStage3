@@ -246,7 +246,7 @@ class DBHelper {
 
   static addReviewServer(review) {
     const port = 1337;
-    return fetch(`http://localhost:${port}/reviews/`, {
+    fetch(`http://localhost:${port}/reviews/`, {
       body: JSON.stringify(review),
       mode: 'cors',
       method: 'POST',
@@ -255,7 +255,7 @@ class DBHelper {
       },
     }).catch(err => {
       console.log('no review');
-    })
+    });
   }
 
 

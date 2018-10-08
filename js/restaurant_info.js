@@ -218,7 +218,7 @@ addReview = () => {
     createdAt: new Date(),
     updatedAt: new Date(),
     rating: rating.value,
-    review: review.value
+    comments: review.value,
   };
   console.log(data);
   //if the browser goes offline alert the user and put the data into a queue for storage
@@ -231,35 +231,9 @@ addReview = () => {
 
   //put the data into a queue
 
-
-  }
+} else {
+  DBHelper.addReviewServer(data);
+  document.getElementById('reviews-list').appendChild(createReviewHTML(data));
 }
 
- /*
- addReview = (id) => {
-   //if the event is not explicitly handles its default action should not be taken
-   event.preventDefault();
-   //get values from the Form
-   const restaurant_id = parseInt(getParameterByName('id'));
-   const reviewName = document.getElementById('review_name');
-   const reviewRating = document.querySelector('input[name="rating"]:checked');
-   const reviewMessage = document.getElementById('review');
-
-   let reviewData = {
-     restaurant_id: id,
-     review_name: name.value,
-     createdAt: new Date(),
-     updatedAt: new Date(),
-     rating: rating.value,
-     review: review.value
-   };
-   //call DBHelper function to add review to the database if submitted.
- }*/
- /*
- DBHelper.addReviewServer(reviewData) => {
-   console.log(response);
-   DBHelper.addReview(id);
-   document.getElementById('reviews-list').appendChild(createReviewHTML(reviewData));
- }
- */
- //document.getElementById("submit-button").onClick = addReview(id);
+}
