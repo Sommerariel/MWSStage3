@@ -250,10 +250,15 @@ class DBHelper {
       body: JSON.stringify(review),
       mode: 'cors',
       method: 'POST',
+      headers: {
+        'Content-Type' : 'application/json; charset=utf-8',
+      },
     }).catch(err => {
       console.log('no review');
     })
   }
+
+
 
 }
 
