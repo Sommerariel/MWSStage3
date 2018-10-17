@@ -30,6 +30,7 @@ let restaurant,
          id: 'mapbox.streets'
        }).addTo(newMap);
        fillBreadcrumb();
+       //networkConnection(e);
        DBHelper.mapMarkerForRestaurant(self.restaurant, self.newMap);
      }
    });
@@ -185,6 +186,25 @@ fillBreadcrumb = (restaurant=self.restaurant) => {
   li.innerHTML = restaurant.name;
   breadcrumb.appendChild(li);
 }
+//check to see if we are online. if we are not let the user know
+networkConnection = (event) => {
+   if(event.type == 'offline') {
+     const offlineWarning = document.getElementById('offlineWarning');
+     offlineWarning.innerHTML = 'Warning: Lost Connection';
+     const warningMessage = document.getElementById('warningMessage');
+     warningMessage.innerHTML = 'It appears you have lost connection to the network. Everything will still be saved.';
+     document.getElementById('offlineContainer');
+     offlineContainer.classList.add('offline-popup');
+     console.log('you appear to be offline');
+   }
+
+   if(event.type =='online') {
+     document.getElementById('offlineContainer');
+     offlineContainer.classList.add('online-popup');
+   }
+ }
+ window.addEventListener('online', networkConnection);
+ window.addEventListener('offline', networkConnection);
 /**
  * Get a parameter by name from page URL.
  */
@@ -228,6 +248,7 @@ addReview = () => {
   offlineMessage.className = 'offline';
   offlineMessage.innerHTML = 'It appears you have lost connection to the network. Your review is pending. Please do not exit.';
   document.getElementById('review-form-container').appendChild(offlineMessage);
+  document.getElementById('reviews-form').reset();
 
   //put the data into a queue
 

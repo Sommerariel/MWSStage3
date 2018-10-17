@@ -42,6 +42,11 @@
     </section>
     <!-- End map -->
     <!-- Beginning restaurant -->
+    <!-- offline warning-->
+    <section id = "offlineContainer">
+      <h2 id="offlineWarning"></h2>
+      <p id= "warningMessage"></p>
+    </section>
     <section id="restaurant-container">
       <h1 id="restaurant-name"></h1>
       <img id="restaurant-img">
@@ -58,7 +63,7 @@
       <h3>We want to hear from you! Leave your review</h3>
       <form  role="form" aria-label="Review form" id="reviews-form" method="post">
         <div>
-          <label id="name" for="name">Name:</label></br>
+          <label id="review-name" for="name">Name:</label></br>
           <input aria-required="true" type="text" id="name" id="review_name" name="name">
         </div>
         <p id="rating-title">Rating:</p>
