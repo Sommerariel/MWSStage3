@@ -3,7 +3,7 @@
  */
 'use strict';
 
- const dbPromise = idb.open('resturant-reviews', 2, upgradeDb => {
+ const dbPromise = idb.open('resturant-reviews', 3, upgradeDb => {
    switch(upgradeDb.oldVersion) {
      case 0:
        console.log('creating a id index');
@@ -12,7 +12,9 @@
      case 1:
         //console.log('creating a review store');
         const reviewsStore = upgradeDb.createObjectStore('reviews', {keyPath: "id"});
-        reviewsStore.createIndex( 'Restaurant_id', 'restaurant_id')
+        reviewsStore.createIndex( 'Restaurant_id', 'restaurant_id');
+     case 2:
+         const queueStore = upgradeDb.createObjectStore('queue', {keyPath: "id"});
    }
  });
 
@@ -244,7 +246,19 @@ class DBHelper {
       }
     });
   }
-
+  static addReviewQueue(review) {
+    if(!navigator.onLine) {
+      dbPromise.then(db => {
+        console.log('adding review in offline')
+        const tx = db.transaction('restaurants', 'readwrite');
+        const store = tx.objectStore('restaurants');
+        reviews.forEach(review => {
+          store.add(review);
+        });
+        return tx.complete;
+      });
+    };
+  }
   static addReviewServer(review) {
     const port = 1337;
     fetch(`http://localhost:${port}/reviews/`, {
@@ -257,6 +271,12 @@ class DBHelper {
     }).catch(err => {
       console.log('no review');
     });
+  }
+
+  static addReview(review) {
+    DBHelper.addReviewServer(review).catch((error) => {
+      DBHelper.addReviewQueue(review);
+    })
   }
 
 }

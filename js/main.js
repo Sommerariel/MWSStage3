@@ -173,7 +173,7 @@ createRestaurantHTML = (restaurant) => {
   let favIconButton = '<i class="far fa-heart"></i>';
   favorite.innerHTML =  favIconButton + ' ' + favStatusName;
   favorite.onclick = function() {
-    const favStatus = (restaurant.is_favorite.toString() === "true") ? true : false;
+    const favStatus = (restaurant.is_favorite === true) ? true : false;
     if (restaurant.is_favorite == 'undefined') {
       restaurant.is_favorite === false;
     }

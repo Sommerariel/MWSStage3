@@ -192,6 +192,7 @@ window.addEventListener('load', function(){
   window.addEventListener('online', function(event) {
     document.getElementById('offlineContainer');
     offlineContainer.classList.add('online-popup');
+
   });
   window.addEventListener('offline', function(event) {
     const offlineWarning = document.getElementById('offlineWarning');
@@ -272,7 +273,7 @@ addReview = () => {
   //put the data into a queue
 
 } else {
-  DBHelper.addReviewServer(data);
+  DBHelper.addReview(data);
   document.getElementById('reviews-list').appendChild(createReviewHTML(data));
 }
 
