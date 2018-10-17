@@ -68,7 +68,7 @@ class DBHelper {
      //the json method on a response object returns a promise
      const urlToFetch = DBHelper.DATABASE_REVIEW_URL + id;
      fetch(urlToFetch)
-     .then(response => response.json()) //return json from sever
+     .then(response => response.json()) //return json from server
      .then(reviews =>
        {
              dbPromise.then(db => {
@@ -82,13 +82,13 @@ class DBHelper {
           callback(reviews);
        }
      ).catch(function () {
-       console.log(`You seem to be offline.Please check your internet`);
+       console.log(`You seem to be offline. Please check your internet`);
        dbPromise.then(db => {
          const tx = db.transaction('reviews', 'readwrite');
          const store = tx.objectStore('reviews');
          return store.getAll();
      }).then(reviews => {
-         callback(null, reviews);
+         callback(reviews);
      })
      });
    }
@@ -210,6 +210,7 @@ class DBHelper {
     return marker;
   }*/
   static favoriteStatus(id, status) {
+    //put new values into the database -> server
     DBHelper.fetchRestaurants((error, restaurant) => {
       if (error) {
         callback(error, null);
@@ -257,8 +258,6 @@ class DBHelper {
       console.log('no review');
     });
   }
-
-
 
 }
 
