@@ -15,6 +15,7 @@
         reviewsStore.createIndex( 'Restaurant_id', 'restaurant_id');
      case 2:
          const queueStore = upgradeDb.createObjectStore('queue', {keyPath: "id"});
+         queueStore.createIndex( 'dateCreated', 'createdAt');
    }
  });
 
@@ -247,18 +248,15 @@ class DBHelper {
     });
   }
   static addReviewQueue(review) {
-    if(!navigator.onLine) {
       dbPromise.then(db => {
         console.log('adding review in offline')
         const tx = db.transaction('restaurants', 'readwrite');
         const store = tx.objectStore('restaurants');
-        reviews.forEach(review => {
-          store.add(review);
-        });
+        store.put(review, review.id);
         return tx.complete;
       });
-    };
   }
+
   static addReviewServer(review) {
     const port = 1337;
     fetch(`http://localhost:${port}/reviews/`, {
@@ -274,9 +272,13 @@ class DBHelper {
   }
 
   static addReview(review) {
-    DBHelper.addReviewServer(review).catch((error) => {
+    if (navigator.onLine) {
+      DBHelper.addReviewServer(review);
+      console.log('online');
+    } else {
       DBHelper.addReviewQueue(review);
-    })
+      console.log('offline');
+    }
   }
 
 }
