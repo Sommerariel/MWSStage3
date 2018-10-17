@@ -509,6 +509,33 @@ textarea#review{
 	margin-top: 1em;
 }
 
+#offlineContainer {
+	position: fixed;
+	z-index: 1000;
+	right: 0;
+	top: 0;
+	width: 50%;
+	height: 30%;
+	color: white;
+	font-size: 0.8em;
+	padding: 1em;
+}
+
+.offline-popup {
+	display: block;
+	display: flex;
+	flex-basis: 50%;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #30A8A8;
+}
+
+
+
+.online-popup {
+	display: none;
+}
+
 
 
 /* ====================== Media Queries ====================== */

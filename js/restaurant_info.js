@@ -187,6 +187,23 @@ fillBreadcrumb = (restaurant=self.restaurant) => {
   breadcrumb.appendChild(li);
 }
 //check to see if we are online. if we are not let the user know
+//code adapted from https://developer.mozilla.org/en-US/docs/Web/API/NavigatorOnLine/Online_and_offline_events
+window.addEventListener('load', function(){
+  window.addEventListener('online', function(event) {
+    document.getElementById('offlineContainer');
+    offlineContainer.classList.add('online-popup');
+  });
+  window.addEventListener('offline', function(event) {
+    const offlineWarning = document.getElementById('offlineWarning');
+    offlineWarning.innerHTML = 'Warning: Lost Connection';
+    const warningMessage = document.getElementById('warningMessage');
+    warningMessage.innerHTML = 'It appears you have lost connection to the network. Everything will still be saved.';
+    document.getElementById('offlineContainer');
+    offlineContainer.classList.add('offline-popup');
+    console.log('you appear to be offline');
+  });
+});
+/*
 networkConnection = (event) => {
    if(event.type == 'offline') {
      const offlineWarning = document.getElementById('offlineWarning');
@@ -205,6 +222,7 @@ networkConnection = (event) => {
  }
  window.addEventListener('online', networkConnection);
  window.addEventListener('offline', networkConnection);
+ */
 /**
  * Get a parameter by name from page URL.
  */
