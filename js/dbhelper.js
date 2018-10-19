@@ -3,7 +3,7 @@
  */
 'use strict';
 
- const dbPromise = idb.open('resturant-reviews', 3, upgradeDb => {
+ const dbPromise = idb.open('resturant-reviews', 4, upgradeDb => {
    switch(upgradeDb.oldVersion) {
      case 0:
        console.log('creating a id index');
@@ -14,8 +14,8 @@
         const reviewsStore = upgradeDb.createObjectStore('reviews', {keyPath: "id"});
         reviewsStore.createIndex( 'Restaurant_id', 'restaurant_id');
      case 2:
-         const queueStore = upgradeDb.createObjectStore('queue', {keyPath: "id"});
-         queueStore.createIndex( 'dateCreated', 'createdAt');
+         const queueStore = upgradeDb.createObjectStore('queue', {keyPath: "id", autoIncrement: true});
+         queueStore.createIndex( 'Restaurant_id', 'restaurant_id');
    }
  });
 
@@ -249,10 +249,10 @@ class DBHelper {
   }
   static addReviewQueue(review) {
       dbPromise.then(db => {
-        console.log('adding review in offline')
-        const tx = db.transaction('restaurants', 'readwrite');
-        const store = tx.objectStore('restaurants');
-        store.put(review, review.id);
+        console.log('adding review in offline', review);
+        const tx = db.transaction('queue', 'readwrite');
+        const store = tx.objectStore('queue');
+        store.put(review);
         return tx.complete;
       });
   }

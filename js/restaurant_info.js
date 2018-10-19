@@ -259,7 +259,9 @@ addReview = () => {
     rating: rating.value,
     comments: review.value,
   };
-  console.log(data);
+  //print out the data we are recieving
+  //console.log(data);
+  //reset the form so the user understands they submitted it
   document.getElementById('reviews-form').reset();
   //if the browser goes offline alert the user and put the data into a queue for storage
   if(!navigator.onLine) {
@@ -268,12 +270,11 @@ addReview = () => {
   offlineMessage.className = 'offline';
   offlineMessage.innerHTML = 'It appears you have lost connection to the network. Your review is pending. Please do not exit.';
   document.getElementById('review-form-container').appendChild(offlineMessage);
-
-
-  //put the data into a queue
+  DBHelper.addReviewQueue(data, restaurant_id);
+  document.getElementById('reviews-list').appendChild(createReviewHTML(data));
 
 } else {
-  DBHelper.addReview(data);
+  DBHelper.addReviewServer(data);
   document.getElementById('reviews-list').appendChild(createReviewHTML(data));
 }
 
