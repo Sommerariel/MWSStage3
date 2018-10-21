@@ -3,11 +3,16 @@
 ---
 ## Restaurant Stage 3
 *My Project Thus Far*
-I expanded the app even further than in stage 2 which can be found [here](https://github.com/Sommerariel/MWSStage2). At this stage a new server for the data was introduced using Sails. The information on how to install and further resources for the server can be found below. Following that the data is still put into a database using the indexDB Promise Library from Jake Archibald which can be found [here](https://github.com/jakearchibald/idb).
-I have added a form for users to submit their own reviews to each restaurant. The data is submitted straight to the database and server and displayed on the UI. The form updates to a queue even if the user is offline so that there is a seamless offline experience. The app does alert the user that they have lost connection so that they know not to fully exit the application, but that their data will be saved. Once reconnected the data submitted offline is submitted back to the server.
-In addition I have added the ability fo the user to favorite a restaurant on the main page and they can toggle each individual restaurant.
-If the app is offline, all content that was visited while online is cached and accessible. All content is still responsive with some added improvements on accessibility including to the form.
-The following are my lighthouse scores that I get running my project locally with Simulated Fast 3G, 4x CPU Slowdown on Mobile and Clearing Storage.
+I expanded the app even further than in stage 2 which can be found [here](https://github.com/Sommerariel/MWSStage2). At this stage a new server for the data was introduced using Sails. The information on how to install and further resources for the server can be found below. Following that the data is still put into a database using the indexDB Promise Library from Jake Archibald which can be found [here](https://github.com/jakearchibald/idb).   
+
+I have added a form for users to submit their own reviews to each restaurant. The data is submitted straight to the database and server and displayed on the UI. The form updates to a queue even if the user is offline so that there is a seamless offline experience. The app does alert the user that they have lost connection so that they know not to fully exit the application, but that their data will be saved. Once reconnected the data submitted offline is submitted back to the server.  
+
+In addition I have added the ability fo the user to favorite a restaurant on the main page and they can toggle each individual restaurant.  
+
+If the app is offline, all content that was visited while online is cached and accessible. All content is still responsive with some added improvements on accessibility including to the form.  
+
+The following are my lighthouse scores that I get running my project locally with Simulated Fast 3G, 4x CPU Slowdown on Mobile and Clearing Storage.  
+
 For the Main page:
 ![Lighthouse Scores:Performance is 99, Progressive Web App is 92, Accessibility is 94, Best Practices is 93, and SEO is 89 ](https://github.com/Sommerariel/MWSStage3/blob/master/lighthouse-1-1.png)
 
