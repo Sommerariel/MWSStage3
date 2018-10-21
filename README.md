@@ -9,9 +9,10 @@ In addition I have added the ability fo the user to favorite a restaurant on the
 If the app is offline, all content that was visited while online is cached and accessible. All content is still responsive with some added improvements on accessibility including to the form.
 The following are my lighthouse scores that I get running my project locally with Simulated Fast 3G, 4x CPU Slowdown on Mobile and Clearing Storage.
 For the Main page:
-(/lighthouse-1.png)
+![Lighthouse Scores:Performance is 99, Progressive Web App is 92, Accessibility is 94, Best Practices is 93, and SEO is 89 ](https://github.com/Sommerariel/MWSStage3/blob/master/lighthouse-1-1.png)
+
 For the Restaurants Page:
-(/lighthouse-1.png)
+![Lighthouse Scores:Performance is 99, Progressive Web App is 92, Accessibility is 94, Best Practices is 80, and SEO is 89 ](https://github.com/Sommerariel/MWSStage3/blob/master/lighthouse-2.png)
 
 ---
 #### _Three Stage Course Material Project - Restaurant Reviews_
