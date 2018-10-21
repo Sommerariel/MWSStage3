@@ -270,15 +270,31 @@ class DBHelper {
       console.log('no review');
     });
   }
+  static addReviewFromQueue() {
+    dbPromise.then (db => {
+      const tx = db.transaction('queue', 'readwrite');
+      tx.objectStore('queue').iterateCursor(cursor => {
+        if(!cursor) return;
+        console.log(cursor.value);
+        DBHelper.addReviewServer(cursor.value);
+        cursor.delete();
+        cursor.continue();
+      });
+      tx.complete.then(() => console.log('done'));
 
-  static addReview(review) {
-    if (navigator.onLine) {
-      DBHelper.addReviewServer(review);
-      console.log('online');
-    } else {
-      DBHelper.addReviewQueue(review);
-      console.log('offline');
-    }
+      /*store.openCursor().onsuccess = function(event) {
+        console.log('you are cursoring');
+        let cursor = event.target.result;
+        if(cursor) {
+          //cursor contains the review we want -> post it to the server
+          DBHelper.addReviewServer(cursor.value);
+          cursor.delete();
+          cursor.continue();
+        } else {
+          console.log('an error appears to have happened when posting to the server');
+        }
+      };*/
+    });
   }
 
 }

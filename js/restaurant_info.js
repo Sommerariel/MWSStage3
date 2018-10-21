@@ -190,8 +190,11 @@ fillBreadcrumb = (restaurant=self.restaurant) => {
 //code adapted from https://developer.mozilla.org/en-US/docs/Web/API/NavigatorOnLine/Online_and_offline_events
 window.addEventListener('load', function(){
   window.addEventListener('online', function(event) {
+    console.log('you are back online');
     document.getElementById('offlineContainer');
     offlineContainer.classList.add('online-popup');
+    //post new review that was submitted into queue
+    DBHelper.addReviewFromQueue();
 
   });
   window.addEventListener('offline', function(event) {
