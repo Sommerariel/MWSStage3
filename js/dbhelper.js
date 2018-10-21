@@ -202,16 +202,7 @@ class DBHelper {
      marker.addTo(newMap);
    return marker;
  }
-  /*static mapMarkerForRestaurant(restaurant, map) {
-    const marker = new google.maps.Marker({
-      position: restaurant.latlng,
-      title: restaurant.name,
-      url: DBHelper.urlForRestaurant(restaurant),
-      map: map,
-      animation: google.maps.Animation.DROP}
-    );
-    return marker;
-  }*/
+
   static favoriteStatus(id, status) {
     //put new values into the database -> server
     DBHelper.fetchRestaurants((error, restaurant) => {
@@ -226,8 +217,10 @@ class DBHelper {
         .then(() =>
           {
                 this.dbPromise(db => {
+                  //get the database
                   const tx = db.transaction('restaurants', 'readwrite');
                   const store = tx.objectStore('restaurants');
+                  //go through each restaurant available and for each one submit the status into the Database
                   restaurants.forEach(restaurant => {
                     //let status = (restaurant.is_favorite == true) ? false : true;
                     restaurant.is_favorite = status;
@@ -235,12 +228,13 @@ class DBHelper {
                   });
                   return tx.complete;
               });
-             //callback(restaurants);
           }
         ).catch(function () {
           dbPromise.then(db => {
+            //grab the database
             const tx = db.transaction('restaurants', 'readwrite');
             const store = tx.objectStore('restaurants');
+            //get everything within that object store and return out
             return store.getAll();
         })
         });
@@ -250,9 +244,12 @@ class DBHelper {
   static addReviewQueue(review) {
       dbPromise.then(db => {
         console.log('adding review in offline', review);
+        //grab the database
         const tx = db.transaction('queue', 'readwrite');
         const store = tx.objectStore('queue');
+        //put that particular review into the store
         store.put(review);
+        //return the transaction as complete
         return tx.complete;
       });
   }
@@ -260,14 +257,15 @@ class DBHelper {
   static addReviewServer(review) {
     const port = 1337;
     fetch(`http://localhost:${port}/reviews/`, {
-      body: JSON.stringify(review),
-      mode: 'cors',
+      //send the data (POST) to the server
       method: 'POST',
+      mode: 'cors',
       headers: {
         'Content-Type' : 'application/json; charset=utf-8',
       },
+      body: JSON.stringify(review),
     }).catch(err => {
-      console.log('no review');
+      console.log('no review', err);
     });
   }
   static addReviewFromQueue() {
@@ -275,25 +273,13 @@ class DBHelper {
       const tx = db.transaction('queue', 'readwrite');
       tx.objectStore('queue').iterateCursor(cursor => {
         if(!cursor) return;
-        console.log(cursor.value);
+        //go through all of the values in the queue and then add them to the server
         DBHelper.addReviewServer(cursor.value);
         cursor.delete();
+        //continue if more than one has been submitted
         cursor.continue();
       });
-      tx.complete.then(() => console.log('done'));
-
-      /*store.openCursor().onsuccess = function(event) {
-        console.log('you are cursoring');
-        let cursor = event.target.result;
-        if(cursor) {
-          //cursor contains the review we want -> post it to the server
-          DBHelper.addReviewServer(cursor.value);
-          cursor.delete();
-          cursor.continue();
-        } else {
-          console.log('an error appears to have happened when posting to the server');
-        }
-      };*/
+      tx.complete;
     });
   }
 

@@ -188,6 +188,7 @@ fillBreadcrumb = (restaurant=self.restaurant) => {
 }
 //check to see if we are online. if we are not let the user know
 //code adapted from https://developer.mozilla.org/en-US/docs/Web/API/NavigatorOnLine/Online_and_offline_events
+//listen for when the user is online and close the offline popup and submit reviews from queue to server
 window.addEventListener('load', function(){
   window.addEventListener('online', function(event) {
     console.log('you are back online');
@@ -197,6 +198,7 @@ window.addEventListener('load', function(){
     DBHelper.addReviewFromQueue();
 
   });
+  //listen for when the user if offline and change the popup for offline to warn user
   window.addEventListener('offline', function(event) {
     const offlineWarning = document.getElementById('offlineWarning');
     offlineWarning.innerHTML = 'Warning: Lost Connection';
@@ -207,26 +209,6 @@ window.addEventListener('load', function(){
     console.log('you appear to be offline');
   });
 });
-/*
-networkConnection = (event) => {
-   if(event.type == 'offline') {
-     const offlineWarning = document.getElementById('offlineWarning');
-     offlineWarning.innerHTML = 'Warning: Lost Connection';
-     const warningMessage = document.getElementById('warningMessage');
-     warningMessage.innerHTML = 'It appears you have lost connection to the network. Everything will still be saved.';
-     document.getElementById('offlineContainer');
-     offlineContainer.classList.add('offline-popup');
-     console.log('you appear to be offline');
-   }
-
-   if(event.type =='online') {
-     document.getElementById('offlineContainer');
-     offlineContainer.classList.add('online-popup');
-   }
- }
- window.addEventListener('online', networkConnection);
- window.addEventListener('offline', networkConnection);
- */
 /**
  * Get a parameter by name from page URL.
  */
@@ -254,6 +236,7 @@ addReview = () => {
   const name = document.querySelector('input[name="name"]');
   const rating = document.querySelector('input[name="rating"]:checked');
   const review = document.querySelector('textarea[name="review"]');
+  //put all values into one complex variable
   const data = {
     restaurant_id: restaurant_id,
     name: name.value,
@@ -262,8 +245,6 @@ addReview = () => {
     rating: rating.value,
     comments: review.value,
   };
-  //print out the data we are recieving
-  //console.log(data);
   //reset the form so the user understands they submitted it
   document.getElementById('reviews-form').reset();
   //if the browser goes offline alert the user and put the data into a queue for storage
@@ -273,10 +254,12 @@ addReview = () => {
   offlineMessage.className = 'offline';
   offlineMessage.innerHTML = 'It appears you have lost connection to the network. Your review is pending. Please do not exit.';
   document.getElementById('review-form-container').appendChild(offlineMessage);
+  //if offline then submit the form instead to a different addReviewQueue
   DBHelper.addReviewQueue(data, restaurant_id);
   document.getElementById('reviews-list').appendChild(createReviewHTML(data));
 
 } else {
+  //if online submit the review to the server
   DBHelper.addReviewServer(data);
   document.getElementById('reviews-list').appendChild(createReviewHTML(data));
 }
